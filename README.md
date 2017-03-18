@@ -2,11 +2,12 @@
 import "github.com/eugene-eeo/rope"
 ```
 
-**rope** implements the [Rope data structure](https://en.wikipedia.org/wiki/Rope_(data_structure))
+Implements the [Rope data structure](https://en.wikipedia.org/wiki/Rope_(data_structure))
 for Go. A Rope is a heavyweight string that can make O(n)
 operations such as concatenation cheaper. This package supports
-concatenation, splitting, indexing, and rebalancing.
-Example usage:
+concatenation, splitting, indexing, and rebalancing. Mainly an
+exercise in making the most of Go's tooling ecosystem, therefore
+not Production Ready™. Example usage:
 
 ```
 package main
