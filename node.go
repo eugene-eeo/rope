@@ -50,17 +50,23 @@ func (n *Node) SplitAt(i int) (Rope, Rope) {
 
 // Slice returns a "substring" of the node from [a, b);
 // i.e. from the a-th to the (b-1)-th characters.
-//  node.Slice(1, 4) // => Node{Leaf{"bc"}, Leaf{"d"}}
+//  sub := node.Slice(1, 4)
+//  sub.Value() == "bcd"
 func (n *Node) Slice(a, b int) Rope {
 	_, r := n.SplitAt(a)
 	l, _ := r.SplitAt(b)
 	return l
 }
 
+// Concat concatenates the current node with another Rope.
+//  node.Concat("ghi").Value() // => "abcdefghi"
 func (n *Node) Concat(x Rope) Rope {
 	return NewNode(n, x)
 }
 
+// ByteAt returns the i-th character in the string.
+//  node.ByteAt(0) == 'a'
+//  node.ByteAt(2) == 'c'
 func (n *Node) ByteAt(i int) byte {
 	l := n.left.Length()
 	if i < l {
@@ -69,10 +75,15 @@ func (n *Node) ByteAt(i int) byte {
 	return n.right.ByteAt(i - l)
 }
 
+// Value returns the value of the node by concatenating
+// all its children.
+//  node.Value() == "abcdef"
 func (n *Node) Value() string {
 	return n.left.Value() + n.right.Value()
 }
 
+// Length returns the length of .Value().
+//  node.Length() == 6
 func (n *Node) Length() int {
 	return n.length
 }
@@ -87,6 +98,9 @@ type nodeInfo struct {
 	size int
 }
 
+// Rebalance explicitly rebalances the node and its children.
+// After rebalancing, splitting and insertion operations will
+// be faster.
 func (n *Node) Rebalance() Rope {
 	S := []nodeInfo{}
 	n.visit(func(leaf *Leaf) {
