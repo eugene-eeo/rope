@@ -5,8 +5,8 @@ type Leaf struct {
 	value string
 }
 
-// NewLeaf creates a new Leaf node with the given `value`.
-func NewLeaf(value string) *Leaf {
+// L creates a new Leaf node with the given `value`.
+func L(value string) *Leaf {
 	return &Leaf{value}
 }
 

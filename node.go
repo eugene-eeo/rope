@@ -31,9 +31,9 @@ func Concat(a, b Rope, nodes ...Rope) *Node {
 
 // SplitAt splits the node at the given index, and returns
 // the left and right pieces. The left piece contains the
-// string up to the i-th character and the right contains
-// the remainder, i.e. the i-th character up to the end of
-// the string.
+// string up to but not including the i-th character and the
+// right contains the remainder, i.e. the i-th character up
+// to the end of the string.
 //  l, r := node.SplitAt(3)
 //  l.Value() // => "abc"
 //  r.Value() // => "def"
@@ -56,7 +56,7 @@ func (n *Node) SplitAt(i int) (Rope, Rope) {
 //  sub.Value() == "bcd"
 func (n *Node) Slice(a, b int) Rope {
 	_, r := n.SplitAt(a)
-	l, _ := r.SplitAt(b)
+	l, _ := r.SplitAt(b - a)
 	return l
 }
 

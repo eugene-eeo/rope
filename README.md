@@ -16,9 +16,9 @@ import "fmt"
 import "github.com/eugene-eeo/rope"
 
 func main() {
-    t := rope.NewLeaf("Hello").Concat(rope.NewLeaf("John!"))
+    t := rope.L("Hello").Concat(rope.L("John!"))
     l, r := t.SplitAt(5)
-    t = rope.Concat(l, rope.NewLeaf(" there, ") r)
+    t = rope.Concat(l, rope.L(" there, ") r)
     fmt.Println(t.Value()) // => "Hello there, John!"
 }
 ```
