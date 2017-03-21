@@ -1,6 +1,7 @@
 package rope
 
-// Node is an internal node in the rope.
+// Node is an internal node in the tree. The zero value of this
+// type is meaningless, and should NOT be used.
 type Node struct {
 	left   Rope
 	right  Rope
@@ -15,13 +16,12 @@ func joinNode(l, r Rope) *Node {
 	}
 }
 
-// NewNode creates a new internal node that concatenates
+// Concat creates a new internal node that concatenates
 // all of its arguments. At least two nodes, `a` and `b` are
 // required. For example:
-//  node := NewNode(NewLeaf("abc"), NewLeaf("def"))
-//  NewNode(node NewLeaf("ghi")).Value()
-//  // => "abcdefghi"
-func NewNode(a, b Rope, nodes ...Rope) *Node {
+//  node := Concat(NewLeaf("abc"), NewLeaf("def"))
+//  Concat(node NewLeaf("ghi")).Value() // => "abcdefghi"
+func Concat(a, b Rope, nodes ...Rope) *Node {
 	s := joinNode(a, b)
 	for _, n := range nodes {
 		s = joinNode(s, n)
@@ -34,7 +34,9 @@ func NewNode(a, b Rope, nodes ...Rope) *Node {
 // string up to the i-th character and the right contains
 // the remainder, i.e. the i-th character up to the end of
 // the string.
-//  node.SplitAt(3) // => Leaf{"abc"}, Leaf{"def"}
+//  l, r := node.SplitAt(3)
+//  l.Value() // => "abc"
+//  r.Value() // => "def"
 func (n *Node) SplitAt(i int) (Rope, Rope) {
 	m := n.left.Length()
 	if i == m {
@@ -61,7 +63,7 @@ func (n *Node) Slice(a, b int) Rope {
 // Concat concatenates the current node with another Rope.
 //  node.Concat("ghi").Value() // => "abcdefghi"
 func (n *Node) Concat(x Rope) Rope {
-	return NewNode(n, x)
+	return Concat(n, x)
 }
 
 // ByteAt returns the i-th character in the string.
@@ -118,7 +120,7 @@ func (n *Node) Rebalance() Rope {
 			// pop from the array and merge the two nodes
 			S = S[:len(S)-1]
 			size += prev.size
-			node = NewNode(prev.node, node)
+			node = Concat(prev.node, node)
 		}
 		S = append(S, nodeInfo{node, size})
 	})
@@ -126,7 +128,7 @@ func (n *Node) Rebalance() Rope {
 	// any leftover nodes.
 	root := S[0].node
 	for _, info := range S[1:] {
-		root = NewNode(root, info.node)
+		root = Concat(root, info.node)
 	}
 	return root
 }

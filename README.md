@@ -18,7 +18,7 @@ import "github.com/eugene-eeo/rope"
 func main() {
     t := rope.NewLeaf("Hello").Concat(rope.NewLeaf("John!"))
     l, r := t.SplitAt(5)
-    t = rope.NewNode(l, rope.NewLeaf(" there, ") r)
+    t = rope.Concat(l, rope.NewLeaf(" there, ") r)
     fmt.Println(t.Value()) // => "Hello there, John!"
 }
 ```
