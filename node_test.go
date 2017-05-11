@@ -34,9 +34,52 @@ func TestSplitAt(t *testing.T) {
 
 func TestSlice(t *testing.T) {
 	s := rope.Concat(rope.L("abc"), rope.L("def"))
+	l := rope.L(s.Value())
 	assert.Equal(
 		t,
 		"bcd",
 		s.Slice(1, 4).Value(),
 	)
+	assert.Equal(
+		t,
+		"bcd",
+		l.Slice(1, 4).Value(),
+	)
+}
+
+func TestConcatNode(t *testing.T) {
+	s := rope.Concat(
+		rope.L("abc"),
+		rope.L("def"),
+	)
+	n := s.Concat(rope.L("ghi"))
+	assert.Equal(t, "abcdefghi", n.Value())
+}
+
+func TestByteAt(t *testing.T) {
+	s := rope.Concat(
+		rope.L("abc"),
+		rope.L("def"),
+	)
+	for i, c := range s.Value() {
+		assert.Equal(t, byte(c), s.ByteAt(i))
+	}
+}
+
+func TestRebalance(t *testing.T) {
+	s := rope.Concat(
+		rope.L("a"),
+		rope.Concat(
+			rope.L("b"),
+			rope.Concat(
+				rope.L("c"),
+				rope.Concat(
+					rope.L("d"),
+					rope.L("e"),
+				),
+			),
+		),
+	)
+	assert.Equal(t, s.Value(), "abcde")
+	assert.Equal(t, s.Rebalance().Value(), "abcde")
 }

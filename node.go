@@ -16,9 +16,8 @@ func joinNode(l, r Rope) *Node {
 	}
 }
 
-// Concat creates a new internal node that concatenates
-// all of its arguments. At least two nodes, `a` and `b` are
-// required. For example:
+// Concat creates a new rope node that concatenates all
+// of its arguments. For example:
 //  node := Concat(NewLeaf("abc"), NewLeaf("def"))
 //  Concat(node NewLeaf("ghi")).Value() // => "abcdefghi"
 func Concat(a, b Rope, nodes ...Rope) *Node {
@@ -51,7 +50,7 @@ func (n *Node) SplitAt(i int) (Rope, Rope) {
 }
 
 // Slice returns a "substring" of the node from [a, b);
-// i.e. from the a-th to the (b-1)-th characters.
+// i.e. starting from a-th to the (b-1)-th characters.
 //  sub := node.Slice(1, 4)
 //  sub.Value() == "bcd"
 func (n *Node) Slice(a, b int) Rope {
