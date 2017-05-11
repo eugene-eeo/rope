@@ -45,6 +45,6 @@ func (l *Leaf) Rebalance() Rope {
 	return l
 }
 
-func (l *Leaf) visit(fn func(*Leaf)) {
+func (l *Leaf) each(fn func(*Leaf)) {
 	fn(l)
 }

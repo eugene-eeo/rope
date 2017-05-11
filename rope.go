@@ -12,5 +12,5 @@ type Rope interface {
 	Value() string
 	Length() int
 
-	visit(fn func(*Leaf))
+	each(fn func(*Leaf))
 }

@@ -89,9 +89,9 @@ func (n *Node) Length() int {
 	return n.length
 }
 
-func (n *Node) visit(fn func(*Leaf)) {
-	n.left.visit(fn)
-	n.right.visit(fn)
+func (n *Node) each(fn func(*Leaf)) {
+	n.left.each(fn)
+	n.right.each(fn)
 }
 
 type nodeInfo struct {
@@ -104,7 +104,7 @@ type nodeInfo struct {
 // be faster.
 func (n *Node) Rebalance() Rope {
 	S := []nodeInfo{}
-	n.visit(func(leaf *Leaf) {
+	n.each(func(leaf *Leaf) {
 		// For each leaf node:
 		// 1. Try to 'reduce' leftwards as much as possible.
 		// 2. Only reduce leftwards if both nodes have the
