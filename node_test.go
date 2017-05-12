@@ -34,17 +34,15 @@ func TestSplitAt(t *testing.T) {
 
 func TestSlice(t *testing.T) {
 	s := rope.Concat(rope.L("abc"), rope.L("def"))
-	l := rope.L(s.Value())
-	assert.Equal(
-		t,
-		"bcd",
-		s.Slice(1, 4).Value(),
-	)
-	assert.Equal(
-		t,
-		"bcd",
-		l.Slice(1, 4).Value(),
-	)
+	for upper := 0; upper < s.Length(); upper++ {
+		for lower := 0; lower < upper; lower++ {
+			assert.Equal(
+				t,
+				s.Value()[lower:upper],
+				s.Slice(lower, upper).Value(),
+			)
+		}
+	}
 }
 
 func TestConcatNode(t *testing.T) {
