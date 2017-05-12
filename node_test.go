@@ -2,7 +2,7 @@ package rope_test
 
 import "testing"
 import "github.com/eugene-eeo/rope"
-import "github.com/stretchr/testify/assert"
+import assert "github.com/stretchr/testify/require"
 
 func TestConcat(t *testing.T) {
 	r := rope.Concat(

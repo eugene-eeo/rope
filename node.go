@@ -65,7 +65,8 @@ func (n *Node) Concat(x Rope) Rope {
 	return Concat(n, x)
 }
 
-// Index returns the 0-based index of the given byte.
+// Index returns the 0-based index of the given byte, or
+// -1 if b is not present.
 //  node.Index(byte("a")) == 0
 func (n *Node) Index(b byte) int {
 	i := n.left.Index(b)
