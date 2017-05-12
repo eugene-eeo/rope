@@ -8,6 +8,7 @@ type Rope interface {
 	Concat(n Rope) Rope
 	Rebalance() Rope
 
+	Index(byte) int
 	ByteAt(int) byte
 	Value() string
 	Length() int

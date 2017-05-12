@@ -65,6 +65,20 @@ func (n *Node) Concat(x Rope) Rope {
 	return Concat(n, x)
 }
 
+// Index returns the 0-based index of the given byte.
+//  node.Index(byte("a")) == 0
+func (n *Node) Index(b byte) int {
+	i := n.left.Index(b)
+	if i != -1 {
+		return i
+	}
+	j := n.right.Index(b)
+	if j != -1 {
+		return n.left.Length() + j
+	}
+	return -1
+}
+
 // ByteAt returns the i-th character in the string.
 //  node.ByteAt(0) == 'a'
 //  node.ByteAt(2) == 'c'

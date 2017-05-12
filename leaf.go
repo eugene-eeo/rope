@@ -1,5 +1,7 @@
 package rope
 
+import "strings"
+
 // Leaf is a leaf node.
 type Leaf struct {
 	value string
@@ -38,6 +40,11 @@ func (l *Leaf) Value() string {
 // Length is similar to Node.Length.
 func (l *Leaf) Length() int {
 	return len(l.value)
+}
+
+// Index is similar to Node.Index.
+func (l *Leaf) Index(b byte) int {
+	return strings.IndexByte(l.value, b)
 }
 
 // Rebalance on a Leaf node does nothing.

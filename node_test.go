@@ -83,3 +83,14 @@ func TestRebalance(t *testing.T) {
 	assert.Equal(t, s.Value(), "abcde")
 	assert.Equal(t, s.Rebalance().Value(), "abcde")
 }
+
+func TestIndex(t *testing.T) {
+	s := rope.Concat(rope.L("abc"), rope.L("def"))
+	for i, character := range s.Value() {
+		assert.Equal(
+			t,
+			s.Index(byte(character)),
+			i,
+		)
+	}
+}
