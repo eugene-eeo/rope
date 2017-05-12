@@ -14,31 +14,23 @@ func TestConcat(t *testing.T) {
 }
 
 func TestSplitAt(t *testing.T) {
-	s := rope.Concat(
-		rope.L("abc"),
-		rope.L("def"),
-	)
-	// when i == midpoint
-	l, r := s.SplitAt(3)
-	assert.Equal(t, "abc", l.Value())
-	assert.Equal(t, "def", r.Value())
-	// i > midpoint
-	l, r = s.SplitAt(4)
-	assert.Equal(t, "abcd", l.Value())
-	assert.Equal(t, "ef", r.Value())
-	// i < midpoint
-	l, r = s.SplitAt(2)
-	assert.Equal(t, "ab", l.Value())
-	assert.Equal(t, "cdef", r.Value())
+	s := rope.Concat(rope.L("abc"), rope.L("def"))
+	v := s.Value()
+	for i := 0; i < s.Length(); i++ {
+		l, r := s.SplitAt(i)
+		assert.Equal(t, v[:i], l.Value())
+		assert.Equal(t, v[i:], r.Value())
+	}
 }
 
 func TestSlice(t *testing.T) {
 	s := rope.Concat(rope.L("abc"), rope.L("def"))
+	v := s.Value()
 	for upper := 0; upper < s.Length(); upper++ {
 		for lower := 0; lower < upper; lower++ {
 			assert.Equal(
 				t,
-				s.Value()[lower:upper],
+				v[lower:upper],
 				s.Slice(lower, upper).Value(),
 			)
 		}
