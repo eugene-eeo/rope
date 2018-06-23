@@ -18,7 +18,7 @@ import "github.com/eugene-eeo/rope"
 func main() {
     t := rope.L("Hello").Concat(rope.L("John!"))
     l, r := t.SplitAt(t.Index(byte("J")))
-    t = rope.Concat(l, rope.L(" there, ") r)
+    t = rope.Concat(l, rope.L(" there, "), r)
     fmt.Println(t.Value()) // => "Hello there, John!"
 }
 ```
